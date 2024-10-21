@@ -7,6 +7,6 @@
     check_cols = ['price']
 )}}
 
-select * from `big-query-project-438917.dbt_nveerala.items`
+select * from {{ref("items")}}
 
 {% endsnapshot%}
