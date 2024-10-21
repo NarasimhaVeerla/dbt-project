@@ -2,8 +2,10 @@
 
 {{config(
     materialized = 'incremental',
-    unique_key = 'Customer_id',
+    unique_key = ['Customer_id','order_id'],
     schema = 'golddataset',
+    incremental_strategy = 'merge',
+    merge_exclude_columns = ['Customer_id','order_id'],
     alias = 'customer_bill'
 )}}
 
@@ -11,6 +13,7 @@
 
 with silver_orders AS (
     SELECT Customer_id,
+        order_id,
         Customer_name,
         Price * Quantity AS Final_amount
     FROM {{ref("silver")}}
@@ -19,6 +22,7 @@ with silver_orders AS (
 -- Insert new data into the existing table (customer_data)
 SELECT
     Customer_id,
+    order_id,
     Customer_name,
     Final_amount
 FROM silver_orders
