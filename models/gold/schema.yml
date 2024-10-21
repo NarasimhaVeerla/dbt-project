@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: gold
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_name
+        tests:
+          - not_null
+      - name: final_amount
+        tests:
+          - not_null
+        
