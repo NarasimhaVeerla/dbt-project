@@ -4,8 +4,12 @@ models:
   - name: gold
     columns:
       - name: customer_id
+        description: 'Customer_id is the unique and not null column'
         tests:
           - not_null
+          - relationships:
+              field: customer_id
+              to: ref('silver')
       - name: order_id
         tests:
           - unique
